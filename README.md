@@ -45,23 +45,23 @@ I will be using the PACE workflow framework throughout this project in order to 
 -	Who is my audience for this project? My audience for this project includes my data team members, as well as the other team members I would be working with.
 -	What am I trying to solve or accomplish? And what do I anticipate the impact of this work will be on the larger needs of the client? In this project, we aim to develop a machine learning model to predict user churn on the Waze app by analysing user data and identifying key factors that lead to churn. The impact will be improved user retention, enhanced user experience, and increased business growth through data-driven decision-making and targeted interventions. This will help Waze maintain a competitive edge and support long-term business success.
 -	What questions need to be asked or answered? These include:
-   -	What are the specific goals and objectives of the churn prediction project?
-   -	What is the condition of the provided dataset?
-   -	What variables will be the most useful?
-   -	Are there trends within the data that can provide insight?
-   -	What steps can I take to reduce the impact of bias?
-   -	Are there any data quality issues or gaps that need to be addressed?
-   -	How will data from different sources be integrated and preprocessed?
-   -	What data governance and privacy considerations need to be taken into account?
-   -	What machine learning algorithms will be used to develop the churn prediction model?
-   -	What metrics will be used to evaluate the model's performance?
-   -	What techniques will be used to validate the model's accuracy and reliability?
-   -	What are the key factors contributing to user churn?
-   -	Who are the users most likely to churn?
-   -	What strategies can be implemented to prevent churn and improve user retention?
-   -	What type of reports and visualisations will be created to communicate findings?
-   -	How will we tailor communication for different stakeholders, including technical and non-technical audiences?
-   -	What are the main talking points for the presentation to the leadership team?
+    -	What are the specific goals and objectives of the churn prediction project?
+    -	What is the condition of the provided dataset?
+    -	What variables will be the most useful?
+    -	Are there trends within the data that can provide insight?
+    -	What steps can I take to reduce the impact of bias?
+    -	Are there any data quality issues or gaps that need to be addressed?
+    -	How will data from different sources be integrated and preprocessed?
+    -	What data governance and privacy considerations need to be taken into account?
+    -	What machine learning algorithms will be used to develop the churn prediction model?
+    -	What metrics will be used to evaluate the model's performance?
+    -	What techniques will be used to validate the model's accuracy and reliability?
+    -	What are the key factors contributing to user churn?
+    -	Who are the users most likely to churn?
+    -	What strategies can be implemented to prevent churn and improve user retention?
+    -	What type of reports and visualisations will be created to communicate findings?
+    -	How will we tailor communication for different stakeholders, including technical and non-technical audiences?
+    -	What are the main talking points for the presentation to the leadership team?
 
 -	What resources are required to complete this project?
     - Team members
