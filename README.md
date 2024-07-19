@@ -45,9 +45,8 @@ I will be using the PACE workflow framework throughout this project in order to 
 -	Who is my audience for this project? My audience for this project includes my data team members, as well as the other team members I would be working with.
 -	What am I trying to solve or accomplish? And what do I anticipate the impact of this work will be on the larger needs of the client? In this project, we aim to develop a machine learning model to predict user churn on the Waze app by analysing user data and identifying key factors that lead to churn. The impact will be improved user retention, enhanced user experience, and increased business growth through data-driven decision-making and targeted interventions. This will help Waze maintain a competitive edge and support long-term business success.
 -	What questions need to be asked or answered? These include:
-  
-   -	What are the specific goals and objectives of the churn prediction project?
-   -	What is the condition of the provided dataset?
+ -	What are the specific goals and objectives of the churn prediction project?
+ -	What is the condition of the provided dataset?
    -		What variables will be the most useful?
    -		Are there trends within the data that can provide insight?
    -		What steps can I take to reduce the impact of bias?
