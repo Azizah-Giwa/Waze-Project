@@ -2,7 +2,7 @@
 
 ## Waze Churn Prediction Model Project
 
-![TikTok Project](assets/TikTok_Image.jpg)
+![Waze Project](assets/Waze_Logo.webp)
  
 **Note**: _This project is created in partnership between Google Advanced Data Analytics Professional Certificate and the real-time driving directions app, Waze. The story, all names, characters, and incidents portrayed in this project are fictitious. No identification with actual persons (living or deceased) is intended or should be inferred. And the data shared in this project has been created for pedagogical purposes._
 
@@ -45,46 +45,46 @@ I will be using the PACE workflow framework throughout this project in order to 
 -	Who is my audience for this project? My audience for this project includes my data team members, as well as the other team members I would be working with.
 -	What am I trying to solve or accomplish? And what do I anticipate the impact of this work will be on the larger needs of the client? In this project, we aim to develop a machine learning model to predict user churn on the Waze app by analysing user data and identifying key factors that lead to churn. The impact will be improved user retention, enhanced user experience, and increased business growth through data-driven decision-making and targeted interventions. This will help Waze maintain a competitive edge and support long-term business success.
 -	What questions need to be asked or answered? These include:
-  -	What are the specific goals and objectives of the churn prediction project?
-  -	What is the condition of the provided dataset?
-  -		What variables will be the most useful?
-  -		Are there trends within the data that can provide insight?
-  -		What steps can I take to reduce the impact of bias?
-  -		Are there any data quality issues or gaps that need to be addressed?
-  -		How will data from different sources be integrated and preprocessed?
-  -		What data governance and privacy considerations need to be taken into account?
-  -		What initial insights can be gained from the data through Exploratory Data Analysis?
-  -		Are there any patterns or trends in the data that need further investigation?
-  -		What machine learning algorithms will be used to develop the churn prediction model?
-  -		How will we split the data for training and testing the model?
-  -		What metrics will be used to evaluate the model's performance?
-  -		How will we ensure the model meets the project requirements?
-  -		What techniques will be used to validate the model's accuracy and reliability?
-  -		How will the model be tested for consistency and robustness?
-  -		What are the key factors contributing to user churn?
-  -		Who are the users most likely to churn?
-  -		What strategies can be implemented to prevent churn and improve user retention?
-  -		What type of reports and visualizations will be created to communicate findings?
-  -		How will we tailor communication for different stakeholders, including technical and non-technical audiences?
-  -		What are the main talking points for the presentation to the leadership team?
-  -		What are the key milestones and deadlines for this project?
+   -	What are the specific goals and objectives of the churn prediction project?
+   -	What is the condition of the provided dataset?
+   -		What variables will be the most useful?
+   -		Are there trends within the data that can provide insight?
+   -		What steps can I take to reduce the impact of bias?
+   -		Are there any data quality issues or gaps that need to be addressed?
+   -		How will data from different sources be integrated and preprocessed?
+   -		What data governance and privacy considerations need to be taken into account?
+   -		What initial insights can be gained from the data through Exploratory Data Analysis?
+   -		Are there any patterns or trends in the data that need further investigation?
+   -		What machine learning algorithms will be used to develop the churn prediction model?
+   -		How will we split the data for training and testing the model?
+   -		What metrics will be used to evaluate the model's performance?
+   -		How will we ensure the model meets the project requirements?
+   -		What techniques will be used to validate the model's accuracy and reliability?
+   -		How will the model be tested for consistency and robustness?
+   -		What are the key factors contributing to user churn?
+   -		Who are the users most likely to churn?
+   -		What strategies can be implemented to prevent churn and improve user retention?
+   -		What type of reports and visualizations will be created to communicate findings?
+   -		How will we tailor communication for different stakeholders, including technical and non-technical audiences?
+   -		What are the main talking points for the presentation to the leadership team?
+   -		What are the key milestones and deadlines for this project?
 
 -	What resources are required to complete this project?
-  - Team members
-  - Input from stakeholders
-  - Budget/Funding
-  - Project Dataset
-  - A statistical tool – e.g., Python (Python notebook)
+   - Team members
+   - Input from stakeholders
+   - Budget/Funding
+   - Project Dataset
+   - A statistical tool – e.g., Python (Python notebook)
 
 -	What are the deliverables that will need to be created over the course of this project?
-  - A project proposal
-  - Prepared and cleaned datasets
-  - Statistical model
-  - Regression analysis model
-  - Machine learning model
-  - Exploratory Data Analysis reports
-  - Stakeholder reports
-  - Visualizations e.g. dashboard
+   - A project proposal
+   - Prepared and cleaned datasets
+   - Statistical model
+   - Regression analysis model
+   - Machine learning model
+   - Exploratory Data Analysis reports
+   - Stakeholder reports
+   - Visualizations e.g. dashboard
 
-
+[Link to Waze Project Proposal](assets/Waze_project_proposal.pdf)
 
