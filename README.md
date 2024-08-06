@@ -99,7 +99,7 @@ Part 3: This involves me trying to understand the variables. Here I will:
 
 I’m starting by importing the packages that I will need.
 
-![Waze Project]()
+![Waze Project](assets/import_code.png)
 
 Then, loading the dataset into a dataframe. Creating a dataframe will help me conduct data manipulation, exploratory data analysis (EDA), and statistical activities.
 
