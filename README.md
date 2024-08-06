@@ -158,3 +158,65 @@ To check how this compares to the device ratio in the full dataset:
 ![Waze Project](assets/output_7.png)
 
 The percentage of missing values by each device is consistent with their representation in the data overall. There is nothing to suggest a non-random cause of the missing data.
+
+Next, I will examine the counts and percentages of users who churned vs. those who were retained to find how many of each group are represented in the data.
+
+![Waze Project](assets/counts_and_percentages.png)
+
+![Waze Project](assets/output_8.png)
+
+This dataset contains 82% retained users and 18% churned users.
+
+Next, I will compare the medians of each variable for churned and retained users. The reason for calculating the median and not the mean is that I don't want outliers to unduly affect the portrayal of a typical user. For example, in the driven_km_drives column, the maximum value is 21,183 km. That's more than half the circumference of the earth!
+
+![Waze Project](median.png)
+
+![Waze Project](assets/output_9.png)
+
+This offers an interesting snapshot of the two groups, churned vs. retained:
+- Users who churned averaged ~3 more drives in the last month than retained users, but retained users used the app on over twice as many days as churned users in the same time period.
+- The median churned user drove ~200 more kilometers and 2.5 more hours during the last month than the median retained user.
+
+It seems that churned users had more drives in fewer days, and their trips were farther and longer in duration. This might be suggestive of a user profile. I will continue exploring to find out.
+
+Next, I will calculate the median kilometers per drive in the last month for both retained and churned users. I will begin by dividing the driven_km_drives column by the drives column. Then, group the results by churned/retained and calculate the median km/drive of each group:
+
+![Waze Project](assets/km_per_drive.png)
+
+![Waze Project](assets/output10.png)
+
+The median retained user drove about one more kilometer per drive than the median churned user. To find out how many kilometers per driving day this was, I will repeat the steps above using driving_days instead of drives:
+
+![Waze Project](assets/km_per_driving_day.png)
+
+![Waze Project](assets/output11.png)
+
+Next, I'll calculate the median number of drives per driving day for each group.
+
+![Waze Project](assets/drives_per_driving_day.png)
+
+![Waze Project](assets/output12.png)
+
+The median user who churned drove 698 kilometers each day they drove last month, which is ~240% the per-drive-day distance of retained users. The median churned user had a similarly disproporionate number of drives per drive day compared to retained users.
+
+It is clear from these figures that, regardless of whether a user churned or not, the users represented in this data are serious drivers! It would probably be safe to assume that this data does not represent typical drivers at large. Perhaps the data—and in particular the sample of churned users—contains a high proportion of long-haul truckers.
+
+In consideration of how much these users drive, it would be worthwhile to recommend to Waze that they gather more data on these super-drivers. It's possible that the reason for their driving so much is also the reason why the Waze app does not meet their specific set of needs, which may differ from the needs of a more typical driver, such as a commuter.
+
+Finally, I'll examine whether there is an imbalance in how many users churned by device type. I'll start this by getting the overall counts of each device type for each group, churned and retained.
+
+![Waze Project](assets/overall_counts.png)
+
+![Waze Project](assets/output13.png)
+
+Now, within each group, churned and retained, I'm going to calculate what percent was Android and what percent was iPhone:
+
+![Waze Project](assets/percentage_iphone_android.png)
+
+![Waze Project](assets/output14.png)
+
+The ratio of iPhone users and Android users is consistent between the churned group and the retained group, and those ratios are both consistent with the ratio found in the overall dataset.
+
+My supervisor, May Santner (Data Analysis Manager), has requested that I share my findings with the data team in an executive summary. As I prepare to write this summary, I will consider key points relevant to the user churn project and determine what information is most important to share with the team. You can access the executive summary through the following link:
+
+[Link to Waze Executive Summary](Waze_Executive_Summary.pdf)
