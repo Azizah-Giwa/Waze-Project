@@ -16,7 +16,7 @@ This project is part of a larger effort at Waze to increase growth. Typically, h
 -	When do users churn?
   
 ## **Scenario 1**
-
+## **Step 1 - Project Proposal**
 As a data analyst, I will collaborate with my Waze teammates to analyse and interpret data, generate valuable insights, and help leadership make informed business decisions. In my role, I will analyse user data and develop a machine learning model that predicts user churn. 
 The insights that the team and I generate will help Waze leadership optimise the company’s retention strategy, enhance user experience, and make data-driven decisions about product development.
 For my first assignment, I will be creating a project proposal that will create milestones for the tasks within this project.
@@ -103,31 +103,33 @@ I’m starting by importing the packages that I will need.
 
 Then, loading the dataset into a dataframe. Creating a dataframe will help me conduct data manipulation, exploratory data analysis (EDA), and statistical activities.
 
+![Waze Project](assets/Load_dataset.png)
+
 **Understanding the data - Inspecting the data**
 
 Now, I will view and inspect summary information about the dataframe.
 
-![Waze Project]()
+![Waze Project](assets/head.png)
 
-![Waze Project]()
+![Waze Project](assets/output_1.png)
 
 None of the variables in the first 10 observations have missing values. Note that this does not imply the whole dataset does not have any missing values.
 
-![Waze Project]()
+![Waze Project](assets/info.png)
 
-![Waze Project]()
+![Waze Project](assets/output_2.png)
 
 The variables 'label' and 'device' are of type object; 'total_sessions', 'driven_km_drives', and 'duration_minutes_drives' are of type float64; the rest of the variables are of type int64. There are 14,999 rows and 13 columns. The dataset has 700 missing values in the label column.
 
 To compare the summary statistics of the 700 rows that are missing labels with summary statistics of the rows that are not missing any values:
 
-![Waze Project]()
+![Waze Project](assets/describe.png)
 
-![Waze Project]()
+![Waze Project](assets/output_3.png)
 
-![Waze Project]()
+![Waze Project](assets/describe1.png)
 
-![Waze Project]()
+![Waze Project](assets/output_4.png)
 
 Comparing summary statistics of the observations with missing retention labels with those that aren't missing any values reveals nothing remarkable. The means and standard deviations are fairly consistent between the two groups.
 
@@ -137,22 +139,22 @@ In this phase, I will begin to investigate the variables more closely to better 
 
 I will start by checking the two populations with respect to the device variable to find how many iPhone users had null values and how many Android users had null values?
 
-![Waze Project]()
+![Waze Project](assets/count_null.png)
 
-![Waze Project]()
+![Waze Project](assets/output_5.png)
 
 Of the 700 rows with null values, 447 were iPhone users and 253 were Android users.
 
 Now, of the rows with null values, I will calculate the percentage with each device—Android and iPhone. I will do this directly with the value_counts() function.
 
-![Waze Project]()
+![Waze Project](assets/percentage_each_device.png)
 
-![Waze Project]()
+![Waze Project](assets/output_6.png)
 
 To check how this compares to the device ratio in the full dataset:
 
-![Waze Project]()
+![Waze Project](assets/percentage_full_dataset.png)
 
-![Waze Project]()
+![Waze Project](assets/output_7.png)
 
 The percentage of missing values by each device is consistent with their representation in the data overall. There is nothing to suggest a non-random cause of the missing data.
