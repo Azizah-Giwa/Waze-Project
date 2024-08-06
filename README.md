@@ -83,3 +83,76 @@ I will be using the PACE workflow framework throughout this project in order to 
 
 [Link to Waze Project Proposal](assets/Waze_project_proposal.pdf)
 
+## **Step 2 - Data Cleaning and Organisation**
+I have received notice that the project proposal submitted by the team has been approved and we have been given access to Waze’s user data. To get clear insights, the data must be inspected, organised, and prepared to begin the process of exploratory data analysis (EDA). I will be using Python programming language for this step and all my codes will be written and executed in a Jupyter Notebook. The goal is for me to construct a dataframe in Python, perform a cursory inspection of the provided dataset, and inform the Waze data team members of my findings. I will split this into 3 parts:
+
+Part 1: This involves me trying to understand the situation – I will begin by exploring the dataset and reviewing the Data Dictionary.
+
+Part 2: This involves me trying to understand the data. Here I will:
+- create a pandas dataframe for data learning, future exploratory data analysis (EDA), and statistical activities.
+- compile summary information about the data to inform next steps.
+
+Part 3: This involves me trying to understand the variables. Here I will:
+- use insights from my examination of the summary data to guide deeper investigation into variables.
+
+**Imports and data loading**
+
+I’m starting by importing the packages that I will need.
+
+![Waze Project]()
+
+Then, loading the dataset into a dataframe. Creating a dataframe will help me conduct data manipulation, exploratory data analysis (EDA), and statistical activities.
+
+**Understanding the data - Inspecting the data**
+
+Now, I will view and inspect summary information about the dataframe.
+
+![Waze Project]()
+
+![Waze Project]()
+
+None of the variables in the first 10 observations have missing values. Note that this does not imply the whole dataset does not have any missing values.
+
+![Waze Project]()
+
+![Waze Project]()
+
+The variables 'label' and 'device' are of type object; 'total_sessions', 'driven_km_drives', and 'duration_minutes_drives' are of type float64; the rest of the variables are of type int64. There are 14,999 rows and 13 columns. The dataset has 700 missing values in the label column.
+
+To compare the summary statistics of the 700 rows that are missing labels with summary statistics of the rows that are not missing any values:
+
+![Waze Project]()
+
+![Waze Project]()
+
+![Waze Project]()
+
+![Waze Project]()
+
+Comparing summary statistics of the observations with missing retention labels with those that aren't missing any values reveals nothing remarkable. The means and standard deviations are fairly consistent between the two groups.
+
+**Understanding the data - Investigating the variables**
+
+In this phase, I will begin to investigate the variables more closely to better understand them.
+
+I will start by checking the two populations with respect to the device variable to find how many iPhone users had null values and how many Android users had null values?
+
+![Waze Project]()
+
+![Waze Project]()
+
+Of the 700 rows with null values, 447 were iPhone users and 253 were Android users.
+
+Now, of the rows with null values, I will calculate the percentage with each device—Android and iPhone. I will do this directly with the value_counts() function.
+
+![Waze Project]()
+
+![Waze Project]()
+
+To check how this compares to the device ratio in the full dataset:
+
+![Waze Project]()
+
+![Waze Project]()
+
+The percentage of missing values by each device is consistent with their representation in the data overall. There is nothing to suggest a non-random cause of the missing data.
