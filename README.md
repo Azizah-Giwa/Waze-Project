@@ -137,7 +137,7 @@ Comparing summary statistics of the observations with missing retention labels w
 
 In this phase, I will begin to investigate the variables more closely to better understand them.
 
-I will start by checking the two populations with respect to the device variable to find how many iPhone users had null values and how many Android users had null values?
+I will start by checking the two populations with respect to the 'device' variable to find how many iPhone users had null values and how many Android users had null values?
 
 ![Waze Project](assets/count_null.png)
 
