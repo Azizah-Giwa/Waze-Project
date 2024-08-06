@@ -169,7 +169,7 @@ This dataset contains 82% retained users and 18% churned users.
 
 Next, I will compare the medians of each variable for churned and retained users. The reason for calculating the median and not the mean is that I don't want outliers to unduly affect the portrayal of a typical user. For example, in the driven_km_drives column, the maximum value is 21,183 km. That's more than half the circumference of the earth!
 
-![Waze Project](median.png)
+![Waze Project](assets/median.png)
 
 ![Waze Project](assets/output_9.png)
 
