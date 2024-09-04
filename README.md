@@ -15,7 +15,7 @@ This project is part of a larger effort at Waze to increase growth. Typically, h
 -	Why do users churn? 
 -	When do users churn?
   
-## **Scenario 1**
+## **Scenario**
 ## **Step 1 - Project Proposal**
 As a data analyst, I will collaborate with my Waze teammates to analyse and interpret data, generate valuable insights, and help leadership make informed business decisions. In my role, I will analyse user data and develop a machine learning model that predicts user churn. 
 The insights that the team and I generate will help Waze leadership optimise the company’s retention strategy, enhance user experience, and make data-driven decisions about product development.
@@ -220,3 +220,11 @@ The ratio of iPhone users and Android users is consistent between the churned gr
 My supervisor, May Santner (Data Analysis Manager), has requested that I share my findings with the data team in an executive summary. As I prepare to write this summary, I will consider key points relevant to the user churn project and determine what information is most important to share with the team. You can access the executive summary through the following link:
 
 [Link to Waze Executive Summary](Waze_Executive_Summary.pdf)
+
+
+## **Step 3 - Exploratory Data Analysis and Data Visualisation**
+
+So far, I have completed a project proposal, and used Python to inspect and organize Waze’s user data. Now, the data is ready for exploratory data analysis (EDA) and further data visualization.  I'll be conducting EDA for the user churn project. I'll use Python's matplotlib and seaborn libraries to help identify outliers. To create a more polished presentation, I'll use Tableau to design visuals for an executive summary that will help non-technical stakeholders engage with and understand the data. Additionally, I will provide an executive summary of my analysis for the broader data team.
+
+### **Imports and data loading**
+
