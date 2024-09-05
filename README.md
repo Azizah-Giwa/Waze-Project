@@ -228,3 +228,59 @@ So far, I have completed a project proposal, and used Python to inspect and orga
 
 ### **Imports and data loading**
 
+![Waze Project](assets/inp_1.png)
+
+![Waze Project](assets/inp_2.png)
+
+### **Data exploration and cleaning**
+
+I will apply the following methods and attributes on the dataframe: head(), size, describe(), and info() to obtain an overview of the data and its summary statistics.
+
+![Waze Project](assets/inp_3.png)
+
+![Waze Project](assets/out_3.png)
+
+![Waze Project](assets/inp_4.png)
+
+![Waze Project](assets/out_4.png)
+
+![Waze Project](assets/inp_5.png)
+
+![Waze Project](assets/out_5.png)
+
+![Waze Project](assets/inp_6.png)
+
+![Waze Project](assets/out_6.png)
+
+### **Visualisations**
+
+Next, I will proceed to visualise the distribution of the data. Box plots will be helpful in determining outliers and where the bulk of the data points reside in terms of 'drives', 'sessions' and all other continuous numeric variables. Histograms are essential to understanding the distribution of variables. Scatter plots will be helpful to visualise relationships between variables. Bar charts are useful for communicating levels and quantities, especially for categorical information.
+
+I will begin by examining the spread and distribution of important variables using box plots and histograms.
+
+"sessions"
+The number of occurrences of a user opening the app during the month.
+
+![Waze Project](assets/inp_7.png)
+
+![Waze Project](assets/out_7.png)
+
+![Waze Project](assets/inp_8.png)
+
+![Waze Project](assets/out_8.png)
+
+The sessions variable is a right-skewed distribution with half of the observations having 56 or fewer sessions. However, as indicated by the boxplot, some users have more than 700.
+
+"drives"
+An occurrence of driving at least 1 km during the month
+
+![Waze Project](assets/inp_9.png)
+
+![Waze Project](assets/out_9.png)
+
+During this EDA, several tasks, like plotting histograms for various variables, are frequently repeated. To streamline the process and avoid redundant code, I’ve created a function that improves efficiency.
+
+The following code block defines a function to plot histograms in a consistent style and format.
+
+![Waze Project](assets/inp_10.png)
+
