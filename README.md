@@ -258,7 +258,8 @@ Next, I will proceed to visualise the distribution of the data. Box plots will b
 
 I will begin by examining the spread and distribution of important variables using box plots and histograms.
 
-"sessions"
+**"sessions"**
+
 The number of occurrences of a user opening the app during the month.
 
 ![Waze Project](assets/inp_7.png)
@@ -271,7 +272,8 @@ The number of occurrences of a user opening the app during the month.
 
 The sessions variable is a right-skewed distribution with half of the observations having 56 or fewer sessions. However, as indicated by the boxplot, some users have more than 700.
 
-"drives"
+**"drives"**
+
 An occurrence of driving at least 1 km during the month
 
 ![Waze Project](assets/inp_9.png)
@@ -283,4 +285,82 @@ During this EDA, several tasks, like plotting histograms for various variables, 
 The following code block defines a function to plot histograms in a consistent style and format.
 
 ![Waze Project](assets/inp_10.png)
+
+![Waze Project](assets/inp_11.png)
+
+![Waze Project](assets/out_11.png)
+
+The "drives" information follows a distribution similar to the "sessions" variable. It is right-skewed, approximately log-normal, with a median of 48. However, some drivers had over 400 drives in the last month.
+
+"total_sessions"
+
+A model estimate of the total number of sessions since a user has onboarded.
+
+![Waze Project](assets/inp_12.png)
+
+![Waze Project](assets/out_12.png)
+
+![Waze Project](assets/inp_13.png)
+
+![Waze Project](assets/out_13.png)
+
+The "total_sessions" is a right-skewed distribution. The median total number of sessions is 159.6. This is interesting information because, if the median number of sessions in the last month was 56 and the median total sessions was ~160, then it seems that a large proportion of a user's (estimated) total drives might have taken place in the last month. 
+
+"n_days_after_onboarding"
+
+The number of days since a user signed up for the app
+
+![Waze Project](assets/inp_14.png)
+
+![Waze Project](assets/out_14.png)
+
+![Waze Project](assets/inp_15.png)
+
+![Waze Project](assets/out_15.png)
+
+The total user tenure (i.e., number of days since onboarding) is a uniform distribution with values ranging from near-zero to ~3,500 (~9.5 years).
+
+"driven_km_drives"
+
+Total kilometers driven during the month
+
+![Waze Project](assets/inp_16.png)
+
+![Waze Project](assets/out_16.png)
+
+![Waze Project](assets/inp_17.png)
+
+![Waze Project](assets/out_17.png)
+
+The number of drives driven in the last month per user is a right-skewed distribution with half the users driving under 3,495 kilometers. As you discovered in the analysis from the previous course, the users in this dataset drive a lot. The longest distance driven in the month was over half the circumferene of the earth.
+
+"duration_minutes_drives"
+
+Total duration driven in minutes during the month
+
+![Waze Project](assets/inp_18.png)
+
+![Waze Project](assets/out_18.png)
+
+![Waze Project](assets/inp_19.png)
+
+![Waze Project](assets/out_19.png)
+
+The "duration_minutes_drive" variable has a heavily skewed right tail. Half of the users drove less than ~1,478 minutes (~25 hours), but some users clocked over 250 hours over the month.
+
+"activity_days"
+
+Number of days the user opens the app during the month.
+
+![Waze Project](assets/inp_20.png)
+
+![Waze Project](assets/out_20.png)
+
+![Waze Project](assets/inp_21.png)
+
+![Waze Project](assets/out_21.png)
+
+Within the last month, users opened the app a median of 16 times. The box plot reveals a centered distribution. The histogram shows a nearly uniform distribution of ~500 people opening the app on each count of days. However, there are ~250 people who didn't open the app at all and ~250 people who opened the app every day of the month.
+
+This distribution is noteworthy because it does not mirror the sessions distribution, which one might think would be closely correlated with "activity_days".
 
