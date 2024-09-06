@@ -292,7 +292,7 @@ The following code block defines a function to plot histograms in a consistent s
 
 The "drives" information follows a distribution similar to the "sessions" variable. It is right-skewed, approximately log-normal, with a median of 48. However, some drivers had over 400 drives in the last month.
 
-"total_sessions"
+**"total_sessions"**
 
 A model estimate of the total number of sessions since a user has onboarded.
 
@@ -306,7 +306,7 @@ A model estimate of the total number of sessions since a user has onboarded.
 
 The "total_sessions" is a right-skewed distribution. The median total number of sessions is 159.6. This is interesting information because, if the median number of sessions in the last month was 56 and the median total sessions was ~160, then it seems that a large proportion of a user's (estimated) total drives might have taken place in the last month. 
 
-"n_days_after_onboarding"
+**"n_days_after_onboarding"**
 
 The number of days since a user signed up for the app
 
@@ -320,7 +320,7 @@ The number of days since a user signed up for the app
 
 The total user tenure (i.e., number of days since onboarding) is a uniform distribution with values ranging from near-zero to ~3,500 (~9.5 years).
 
-"driven_km_drives"
+**"driven_km_drives"**
 
 Total kilometers driven during the month
 
@@ -334,7 +334,7 @@ Total kilometers driven during the month
 
 The number of drives driven in the last month per user is a right-skewed distribution with half the users driving under 3,495 kilometers. As you discovered in the analysis from the previous course, the users in this dataset drive a lot. The longest distance driven in the month was over half the circumferene of the earth.
 
-"duration_minutes_drives"
+**"duration_minutes_drives"**
 
 Total duration driven in minutes during the month
 
@@ -348,7 +348,7 @@ Total duration driven in minutes during the month
 
 The "duration_minutes_drive" variable has a heavily skewed right tail. Half of the users drove less than ~1,478 minutes (~25 hours), but some users clocked over 250 hours over the month.
 
-"activity_days"
+**"activity_days"**
 
 Number of days the user opens the app during the month.
 
@@ -364,3 +364,189 @@ Within the last month, users opened the app a median of 16 times. The box plot r
 
 This distribution is noteworthy because it does not mirror the sessions distribution, which one might think would be closely correlated with "activity_days".
 
+**"driving_days"**
+
+Number of days the user drives (at least 1 km) during the month.
+
+![Waze Project](assets/inp_22.png)
+
+![Waze Project](assets/out_22.png)
+
+![Waze Project](assets/inp_23.png)
+
+![Waze Project](assets/out_23.png)
+
+The number of days users drove each month is almost uniform, and it largely correlates with the number of days they opened the app that month, except the "driving_days" distribution tails off on the right.
+
+However, there were almost twice as many users (~1,000 vs. ~550) who did not drive at all during the month. This might seem counterintuitive when considered together with the information from "activity_days". That variable had ~500 users opening the app on each of most of the day counts, but there were only ~250 users who did not open the app at all during the month and ~250 users who opened the app every day.
+
+**"device"**
+
+The type of device a user starts a session with.
+
+Since this is a categorical variable, a box plot is not suitable. Instead, a pie chart is a better choice for visualizing a binary categorical variable.
+
+![Waze Project](assets/inp_24.png)
+
+![Waze Project](assets/out_24.png)
+
+There are nearly twice as many iPhone users as Android users represented in this data.
+
+**"label"**
+
+Binary target variable (“retained” vs “churned”) for if a user has churned anytime during the course of the month.
+
+This is also a categorical variable, and as such would not be plotted as a box plot. I'll plot a pie chart instead.
+
+![Waze Project](assets/inp_25.png)
+
+![Waze Project](assets/out_25.png)
+
+Less than 18% of the users churned.
+
+**"driving_days vs. activity_days"**
+
+Because both "driving_days" and "activity_days" represent counts of days over a month and they're also closely related, i'll plot them together on a single histogram. This will help to better understand how they relate to each other without having to scroll back and forth comparing histograms in two different places.
+
+I'll plot a histogram that, for each day, has a bar representing the counts of driving_days and user_days.
+
+![Waze Project](assets/inp_26.png)
+
+![Waze Project](assets/out_26.png)
+
+As observed previously, this might seem counterintuitive. After all, why are there fewer people who didn't use the app at all during the month and more people who didn't drive at all during the month?
+
+On the other hand, it could just be illustrative of the fact that, while these variables are related to each other, they're not the same. People probably just open the app more than they use the app to drive—perhaps to check drive times or route information, to update settings, or even just by mistake.
+
+Also, it seems that the number of days in the month is not the same between variables.
+
+To confirm the maximum number of days for each variable — "driving_days" and "activity_days":
+
+![Waze Project](assets/inp_27.png)
+
+![Waze Project](assets/out_27.png)
+
+It's true. Although it's possible that not a single user drove all 31 days of the month, it's highly unlikely, considering there are 15,000 people represented in the dataset.
+
+One other way to check the validity of these variables is to plot a simple scatter plot with the x-axis representing one variable and the y-axis representing the other.
+
+![Waze Project](assets/inp_28.png)
+
+![Waze Project](assets/out_28.png)
+
+Notice that there is a theoretical limit. If a driver uses the app to drive, then by definition it must count as a day-use as well. In other words, a driver cannot have more drive-days than activity-days. None of the samples in this data violate this rule, which is good.
+
+**"Retention by device"**
+
+I will plot a histogram that has four bars — one for each device-label-combination to show how many iPhone users were retained/churned and how many Android users were retained/churned.
+
+![Waze Project](assets/inp_29.png)
+
+![Waze Project](assets/out_29.png)
+
+The proportion of churned users to retained users is consistent between device types.
+
+**Retention by kilometres driven per driving day**
+
+During the cleaning and organisation step, I found that the median distance driven per driving day last month was 608.78 km for users who churned, compared to 247.48 km for those who did not churn. This warrants further investigation.
+
+I will now create a new column in the dataframe, df called "km_per_driving_day," representing the mean distance driven per driving day for each user. Afterward, I will use the describe() method to summarise the statistics for this new column.
+
+![Waze Project](assets/inp_30.png)
+
+![Waze Project](assets/out_30.png)
+
+The mean value is infinity, the standard deviation is NaN, and the max value is infinity. This is the result of there being values of zero in the "driving_days"  column. Pandas imputes a value of infinity in the corresponding rows of the new column because division by zero is undefined. I will convert these values from infinity to zero using np.inf to refer to a value of infinity. Then, I'll call describe() on the new "km_per_driving_day" column to verify that it worked:
+
+![Waze Project](assets/inp_31.png)
+
+![Waze Project](assets/out_31.png)
+
+The maximum value is 15,420 kilometers per drive day. This is physically impossible. Driving 100 km/hour for 12 hours is 1,200 km. It's unlikely many people averaged more than this each day they drove, so, for now, I will disregard rows where the distance in this column is greater than 1,200 km.
+
+I will plot a histogram of the new km_per_driving_day column, disregarding those users with values greater than 1,200 km. Each bar would be the same length and have two colors, one color representing the percent of the users in that bar that churned and the other representing the percent that were retained.
+
+![Waze Project](assets/inp_32.png)
+
+![Waze Project](assets/out_32.png)
+
+The churn rate tends to increase as the mean daily distance driven increases, confirming what was found previously.
+
+**Churn rate per number of driving days**
+
+I will create another histogram just like the previous one, only this time it would represent the churn rate for each number of driving days.
+
+![Waze Project](assets/inp_33.png)
+
+![Waze Project](assets/out_33.png)
+
+The churn rate is highest for people who didn't use Waze much during the last month. The more times they used the app, the less likely they were to churn. While 40% of the users who didn't use the app at all last month churned, nobody who used the app for 30 days churned.
+
+This isn't surprising. If people who used the app a lot churned, it would likely indicate dissatisfaction. When people who don't use the app churn, it might be the result of dissatisfaction in the past, or it might be indicative of a lesser need for a navigational app. Maybe they moved to a city with good public transportation and don't need to drive anymore.
+
+**Proportion of sessions that occurred in the last month**
+
+I will create a new column called "percent_sessions_in_last_month" that represents the percentage of each user's total sessions that were logged in their last month of use.
+
+![Waze Project](assets/inp_34.png)
+
+![Waze Project](assets/inp_35.png)
+
+![Waze Project](assets/out_35.png)
+
+Now, I'll create a histogram depicting the distribution of values in this new column:
+
+![Waze Project](assets/inp_36.png)
+
+![Waze Project](assets/out_36.png)
+
+Now, I'll check the median value of the "n_days_after_onboarding" variable.
+
+![Waze Project](assets/inp_37.png)
+
+![Waze Project](assets/out_37.png)
+
+Half of the people in the dataset had 40% or more of their sessions in just the last month, yet the overall median time since onboarding is almost five years.
+
+I'll make a histogram of "n_days_after_onboarding" for just the people who had 40% or more of their total sessions in the last month.
+
+![Waze Project](assets/inp_38.png)
+
+![Waze Project](assets/out_38.png)
+
+The number of days since onboarding for users with 40% or more of their total sessions occurring in just the last month is a uniform distribution. This is very strange.
+
+### **Handling outliers**
+
+The box plots above indicate that many of the variables have outliers. These outliers do not seem to be data entry errors; they are present because of the right-skewed distributions.
+
+I will be imputing outlying data with more reasonable values. I will perform this imputation by setting a threshold based on a percentile of the distribution.
+
+I will write a function that calculates the 95th percentile of a given column, then imputes values > the 95th percentile with the value at the 95th percentile such as the 95th percentile of the distribution.
+
+![Waze Project](assets/inp_39.png)
+
+Next, I'll apply that function to the following columns: "sessions", "drives", "total_sessions", "driven_km_drives", "duration_minutes_drives".
+
+![Waze Project](assets/inp_40.png)
+
+![Waze Project](assets/out_40.png)
+
+I'll apply the describe() method to confirm if my change worked.
+
+![Waze Project](assets/inp_41.png)
+
+![Waze Project](assets/out_41.png)
+
+Analysis revealed that the overall churn rate is ~17%, and that this rate is consistent between iPhone users and Android users. Also, EDA has revealed that users who drive very long distances on their driving days are more likely to churn, but users who drive more often are less likely to churn.
+
+Things I have learned from this EDA are:
+
+- There is missing data in the user churn label, so I might need further data processing before further analysis.
+- There are many outlying observations for drives, so I might have to consider a variable transformation to stabilise the variation.
+- The number of drives and the number of sessions are both strongly correlated, so they might provide redundant information when I incorporate both in a model.
+- On average, retained users have fewer drives than churned users.
+
+Having completed the exploration and visualization of the data, the next step is to present my findings to Harriet Hadzic, Waze's Director of Data Analysis. Below is a link to the executive summary I have prepared for the leadership team.
+
+[Link to Waze Executive Summary](Waze_Executive_Summary.pdf)
