@@ -549,4 +549,4 @@ Things I have learned from this EDA are:
 
 Having completed the exploration and visualization of the data, the next step is to present my findings to Harriet Hadzic, Waze's Director of Data Analysis. Below is a link to the executive summary I have prepared for the leadership team.
 
-[Link to Waze Executive Summary](Waze_Executive_Summary.pdf)
+[Link to Waze Executive Summary](Waze_Executive_Summary_2.pdf)
