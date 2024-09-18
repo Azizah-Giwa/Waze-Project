@@ -550,3 +550,103 @@ Things I have learned from this EDA are:
 Having completed the exploration and visualization of the data, the next step is to present my findings to Harriet Hadzic, Waze's Director of Data Analysis. Below is a link to the executive summary I have prepared for the leadership team.
 
 [Link to Waze Executive Summary](Waze_Executive_Summary_2.pdf)
+
+## **Step 4 - Exploratory Data Analysis and Data Visualisation**
+
+We are now approaching the midpoint of the user churn project. So far, I’ve completed the project proposal and used Python to explore and analyse Waze’s user data. Additionally, I have used Python to create data visualisations. The next step is to apply statistical methods to analyse and interpret the data.
+
+I’ve received an email from Sylvester Esperanza, the project manager, informing the team of a new request from leadership: to analyse the relationship between the average number of rides and device type. I've also discovered follow-up emails from three other team members—May Santner, Chidi Ga, and Harriet Hadzic—discussing the details of the analysis. They are requesting a statistical analysis of ride data based on device type. Specifically, leadership is interested in whether there is a statistically significant difference in the average number of rides between iPhone® users and Android™ users. A final email from Chidi outlines my specific task: to perform a two-sample hypothesis test (t-test) to analyse the difference in the average number of rides between iPhone and Android users.
+
+I will divide my task into 3 parts to help guide me:
+
+**Part 1: Imports, Data Loading and Data Exploration**
+
+- What data packages will be necessary for hypothesis testing?
+
+**Part 2: Conduct Hypothesis Testing**
+
+- How did computing descriptive statistics help me analyse the data?
+- How did I formulate my null hypothesis and alternative hypothesis?
+
+**Part 3: Communicate Insights with Stakeholders**
+
+- What key business insight(s) emerged from the hypothesis test?
+- What business recommendations do I propose based on thes results?
+
+### **Part 1: Imports, Data Loading and Data Exploration**
+
+I will now import packages and libraries needed to compute descriptive statistics and conduct a hypothesis test.
+
+![Waze Project](assets/inp_42.png)
+
+Then import the dataset.
+
+![Waze Project](assets/inp_43.png)
+
+Then, I'll use Use descriptive statistics to conduct exploratory eata analysis (EDA).
+
+Note: In the dataset, "device" is a categorical variable with the labels "iPhone" and "Android".
+
+In order to perform this analysis, I'll turn each label into an integer. The following code assigns a 1 for an iPhone user and a 2 for Android. It assigns this label back to the variable device_type.
+
+Note: Creating a new variable "device_type" is ideal so that I don't overwrite original data.
+
+I will perform the analysis by:
+
+- Creating a dictionary called "map_dictionary" that contains the class labels ("Android" and "iPhone") for keys and the values I want to convert them to (2 and 1) as values.
+- Creating a new column called "device_type" that is a copy of the device column.
+- Using the map() method on the "device_type" series. Then, passing "map_dictionary" as its argument, and then reassigning the result back to the "device_type" series.
+
+![Waze Project](assets/inp_44.png)
+
+![Waze Project](assets/out_44.png)
+
+Since I am interested in the relationship between device type and the number of drives, one approach is to examine the average number of drives for each device type. I will calculate these averages accordingly.
+
+![Waze Project](assets/inp_45.png)
+
+![Waze Project](assets/out_45.png)
+
+Based on the averages shown, it appears that drivers who use an iPhone device to interact with the application have a higher number of drives on average. However, this difference might arise from random sampling, rather than being a true difference in the number of drives. To assess whether the difference is statistically significant, yI will move on to conducting a hypothesis test.
+
+### **Part 2: Conduct Hypothesis Testing**
+
+My goal is to conduct a two-sample t-test, as instructed by Chidi. To do this, I follow the steps for conducting a hypothesis test:
+
+- State the null hypothesis and the alternative hypothesis
+- Choose a signficance level
+- Find the p-value
+- Reject or fail to reject the null hypothesis
+
+**State the null hypothesis and the alternative hypothesis**
+
+Hypotheses:
+
+- **Null Hypothesis (H<sub>0</sub>)**: There is no difference in average number of drives between drivers who use iPhone devices and drivers who use Androids.
+- **Alternative Hypothesis (H<sub>A</sub>)**: There is a difference in average number of drives between drivers who use iPhone devices and drivers who use Androids.
+
+**Choose a signficance level**
+
+I'm choosing 5% as the significance level.
+
+**Find the p-value**
+
+![Waze Project](assets/inp_46.png)
+
+![Waze Project](assets/out_46.png)
+
+**Reject or fail to reject the null hypothesis**
+
+Since the p-value is larger than the chosen significance level (5%), I'll _**fail to reject**_ the null hypothesis. My conclusion is that there is not a statistically significant difference in the average number of drives between drivers who use iPhones and drivers who use Androids.
+
+### **Part 3: Communicate Insights with Stakeholders**
+
+Now that I've completed the hypothesis test, the next step is to share my findings with the Waze leadership team.
+
+The key business insight is that drivers who use iPhone devices on average have a similar number of drives as those who use Androids.
+
+One potential next step is to explore what other factors influence the variation in the number of drives, and run additonal hypothesis tests to learn more about user behavior. Further, temporary changes in marketing or user interface for the Waze app may provide more data to investigate churn.
+
+I have created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
+
+[Link to Waze Executive Summary](Waze_Executive_Summary_4.pdf)
