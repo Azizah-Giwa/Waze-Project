@@ -551,7 +551,7 @@ Having completed the exploration and visualization of the data, the next step is
 
 [Link to Waze Executive Summary](Waze_Executive_Summary_2.pdf)
 
-## **Step 4 - Exploratory Data Analysis and Data Visualisation**
+## **Step 4 - Data Exploration and Hypothesis Testing**
 
 We are now approaching the midpoint of the user churn project. So far, I’ve completed the project proposal and used Python to explore and analyse Waze’s user data. Additionally, I have used Python to create data visualisations. The next step is to apply statistical methods to analyse and interpret the data.
 
@@ -650,3 +650,183 @@ One potential next step is to explore what other factors influence the variation
 I have created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
 
 [Link to Waze Executive Summary](Waze_Executive_Summary_4.pdf)
+
+
+## **Step 5 - Regression Modelling**
+
+I am now over halfway through the project to develop a machine learning model for predicting user churn. Leadership has requested that the team build a regression model to predict churn based on various factors.
+
+I plan to implement a binomial logistic regression model. Since the goal is to predict user churn, this model will help guide the best approach for the machine learning algorithm in the final phase of the project.
+
+I will move forward by breaking this phase into specific tasks, such as:
+
+- Task 1: Imports and Data Loading
+- Task 2a: Explore Data with EDA
+- Task 2b: Create Features
+- Task 3a: Preparing Variables
+- Task 3b: Determine Whether Assumptions Have Been Met
+- Task 3c: Create Dummies
+- Task 3d: Model Building
+- Task 4a: Results and Evaluation
+- Task 4b: Show Results with a Confusion Matrix
+- Task 4c: Conclusion
+
+### **Task 1: Imports and Data Loading**
+
+I will import the data and packages that are needed for building logistic regression models.
+
+![Waze Project](assets/inp_48.png)
+
+Then, import the dataset.
+
+![Waze Project](assets/inp_49.png)
+
+### **Task 2a: Explore Data with EDA**
+
+I will analyse and discover data, looking for correlations, missing data, potential outliers, and/or duplicates.
+
+Starting with shape and info().
+
+![Waze Project](assets/inp_50.png)
+
+![Waze Project](assets/out_50.png)
+
+The _"label"_ column is missing 700 values.
+
+Then, moving on to viewing the top 5 rows of the dataset.
+
+![Waze Project](assets/inp_51.png)
+
+![Waze Project](assets/out_51.png)
+
+Then, I'll use the drop() method to remove the _"ID"_ column since I don't need this information for my analysis.
+
+![Waze Project](assets/inp_52.png)
+
+Now, I'll check the class balance of the dependent (target) variable, _"label"_.
+
+![Waze Project](assets/inp_53.png)
+
+![Waze Project](assets/out_53.png)
+
+Then, I'll call describe() on the data.
+
+![Waze Project](assets/inp_54.png)
+
+![Waze Project](assets/out_54.png)
+
+Just by assessing at the quartile values, standard deviation, and max values, the following columns all seem to have outliers:
+
+- sessions
+- drives
+- total_sessions
+- total_navigations_fav1
+- total_navigations_fav2
+- driven_km_drives
+- duration_minutes_drives
+
+All of these columns have max values that are multiple standard deviations above the 75th percentile. This could indicate outliers in these variables.
+
+### **Task 2b: Create Features**
+
+In this task, I will create features that are needed to address the business problem.
+
+I know from earlier EDA that churn rate correlates with distance driven per driving day in the last month. Therefore, I think it might be helpful to engineer a feature that captures this information.
+
+I will create a new column in df called _"km_per_driving_day"_, which represents the mean distance driven per driving day for each user. Then, I'll call the describe() method on the new column.
+
+![Waze Project](assets/inp_55.png)
+
+![Waze Project](assets/out_55.png)
+
+Note that some values are infinite. This is the result of there being values of zero in the _"driving_days"_ column. Pandas imputes a value of infinity in the corresponding rows of the new column because division by zero is undefined.
+
+Now, I'll convert these values from infinity to zero. I'll use np.inf to refer to a value of infinity. Then, I'll call describe() on the _"km_per_driving_day"_ column to verify that it worked.
+
+![Waze Project](assets/inp_56.png)
+
+![Waze Project](assets/out_56.png)
+
+Next, I'll create a new binary feature called _"professional_driver"_ that is a 1 for users who had 60 or more drives and drove on 15+ days in the last month.
+
+Note: The objective is to create a new feature that separates professional drivers from other drivers. To create this column, I'll use the np.where() function.
+
+![Waze Project](assets/inp_57.png)
+
+I'll perform a quick inspection of the new variable by checking the count of professional drivers and non-professionals. Also, within each class (professional and non-professional), I'll calculate the churn rate.
+
+![Waze Project](assets/inp_58.png)
+
+![Waze Project](assets/out_58.png)
+
+The churn rate for professional drivers is 7.6%, while the churn rate for non-professionals is 19.9%. This seems like it could add predictive signal to the model.
+
+### **Task 3a: Preparing Variables**
+
+I'll call info() on the dataframe to check the data type of the _"label"_ variable and to verify if there are any missing values.
+
+![Waze Project](assets/inp_59.png)
+
+![Waze Project](assets/out_59.png)
+
+Because I know from previous EDA that there is no evidence of a non-random cause of the 700 missing values in the _"label"_ column, and because these observations comprise less than 5% of the data, I'll use the dropna() method to drop the rows that are missing this data.
+
+![Waze Project](assets/inp_60.png)
+
+As noted in task 2a, I identified seven variables that may contain potential outliers. In this analysis, I will address these outliers by imputing the values in the affected columns. For each column, I will calculate the 95th percentile and replace any value that exceeds this threshold with the corresponding percentile value.
+
+![Waze Project](assets/inp_61.png)
+
+![Waze Project](assets/out_61.png)
+
+Call describe() on the data to confirm it worked.
+
+![Waze Project](assets/inp_62.png)
+
+![Waze Project](assets/out_62.png)
+
+Now, I will encode categorical variables.
+
+To do this, I will change the data type of the label column to be binary. This change is needed to train a logistic regression model.
+
+I will assign a 0 for all retained users and assign a 1 for all churned users. I'll save the variable as _"label2"_ as to not overwrite the original label variable.
+
+![Waze Project](assets/inp_63.png)
+
+![Waze Project](assets/out_63.png)
+
+### **Task 3b: Determine whether assumptions have been met**
+
+The following are the assumptions for logistic regression:
+
+- Independent observations (This refers to how the data was collected.
+- No extreme outliers.
+- Little to no multicollinearity among X predictors.
+- Linear relationship between X and the logit of y.
+
+For the first assumption, I have previously discovered that observations are independent for this project.
+
+The second assumption has already been addressed.
+
+The last assumption will be verified after modeling.
+
+For the third assumption, I will check for collinearity as shown below:
+
+I will start by assessing the correlation between the predictor variables by generating a correlation matrix.
+
+![Waze Project](assets/inp_64.png)
+
+![Waze Project](assets/out_64.png)
+
+Then, I'll plot a correlation heatmap.
+
+![Waze Project](assets/inp_65.png)
+
+![Waze Project](assets/out_65.png)
+
+Predictor variables that have a Pearson correlation coefficient value greater than the **absolute value of 0.7**, are strongly multicollinear. Therefore, only one of these variables would be used in my model. These variables are:
+
+- _"sessions"_ and _"drives"_: 1.0
+- _"driving_days"_ and _"activity_days"_: 0.95
+
+### **Task 3c: Create Dummies**
