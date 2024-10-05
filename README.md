@@ -964,27 +964,27 @@ Now that I've built the regression model, the next step is to share my findings 
 
 1. What variable most influenced the model's prediction? How? Was this surprising?
    
-_"activity_days"_ was by far the most important feature in the model. It had a negative correlation with user churn. This was not surprising, as this variable was very strongly correlated with _"driving_days"_, which was known from EDA to have a negative correlation with churn.
+- _"activity_days"_ was by far the most important feature in the model. It had a negative correlation with user churn. This was not surprising, as this variable was very strongly correlated with _"driving_days"_, which was known from EDA to have a negative correlation with churn.
 
 2. Were there any variables that I expected to be stronger predictors than they were?
    
-Yes. In previous EDA, user churn rate increased as the values in _"km_per_driving_day"_ increased. The correlation heatmap in this phase revealed this variable to have the strongest positive correlation with churn of any of the predictor variables by a relatively large margin. In the model, it was the second-least-important variable.
+- Yes. In previous EDA, user churn rate increased as the values in _"km_per_driving_day"_ increased. The correlation heatmap in this phase revealed this variable to have the strongest positive correlation with churn of any of the predictor variables by a relatively large margin. In the model, it was the second-least-important variable.
 
 3. Why might a variable I thought to be important not be important in the model?
    
-In a multiple logistic regression model, features can interact with each other and these interactions can result in seemingly counterintuitive relationships. This is both a strength and a weakness of predictive models, as capturing these interactions typically makes a model more predictive while at the same time making the model more difficult to explain.
+- In a multiple logistic regression model, features can interact with each other and these interactions can result in seemingly counterintuitive relationships. This is both a strength and a weakness of predictive models, as capturing these interactions typically makes a model more predictive while at the same time making the model more difficult to explain.
 
 4. Would I recommend that Waze use this model? Why or why not?
    
-It depends. What would the model be used for? If it's used to drive consequential business decisions, then no. The model is not a strong enough predictor, as made clear by its poor recall score. However, if the model is only being used to guide further exploratory efforts, then it can have value.
+- It depends. What would the model be used for? If it's used to drive consequential business decisions, then no. The model is not a strong enough predictor, as made clear by its poor recall score. However, if the model is only being used to guide further exploratory efforts, then it can have value.
 
 5. What could I do to improve this model?
    
-New features could be engineered to try to generate better predictive signal, as they often do if one has domain knowledge. In the case of this model, one of the engineered features (professional_driver) was the third-most-predictive predictor. It could also be helpful to scale the predictor variables, and/or to reconstruct the model with different combinations of predictor variables to reduce noise from unpredictive features.
+- New features could be engineered to try to generate better predictive signal, as they often do if one has domain knowledge. In the case of this model, one of the engineered features (professional_driver) was the third-most-predictive predictor. It could also be helpful to scale the predictor variables, and/or to reconstruct the model with different combinations of predictor variables to reduce noise from unpredictive features.
 
 6. What additional features would I like to have to help improve the model?
    
-It would be helpful to have drive-level information for each user (such as drive times, geographic locations, etc.). It would probably also be helpful to have more granular data to know how users interact with the app. For example, how often do they report or confirm road hazard alerts? Finally, it could be helpful to know the monthly count of unique starting and ending locations each driver inputs.
+- It would be helpful to have drive-level information for each user (such as drive times, geographic locations, etc.). It would probably also be helpful to have more granular data to know how users interact with the app. For example, how often do they report or confirm road hazard alerts? Finally, it could be helpful to know the monthly count of unique starting and ending locations each driver inputs.
 
 I have also created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
 
