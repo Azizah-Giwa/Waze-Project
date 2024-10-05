@@ -830,3 +830,156 @@ Predictor variables that have a Pearson correlation coefficient value greater th
 - _"driving_days"_ and _"activity_days"_: 0.95
 
 ### **Task 3c: Create Dummies**
+
+Since I've chosen _"device"_ as an X variable, I need to convert it into dummy variables since it's a categorical feature. Given that this dataset only has one categorical feature left (device), I don't need to use specialized functions like pandas' pd.get_dummies() or scikit-learn's OneHotEncoder(). Instead, I'll manually implement the transformation. I'll create a new binary column called _"device2"_ to encode user devices as follows:
+
+![Waze Project](assets/inp_66.png)
+
+![Waze Project](assets/out_66.png)
+
+### **Task 3d: Model building**
+
+First, I'll assign predictor and target variables. 
+
+To build the model, I need to determine which X variables I want to include in the model to predict the target — _"label2"_.
+I'll drop the following variables and assign the results to X:
+- _"label"_ (this is the target)
+- _"label2"_ (this is the target)
+- _"device"_ (this is the non-binary-encoded categorical variable)
+- _"sessions"_ (this had high multicollinearity)
+- _"driving_days"_ (this had high multicollinearity)
+
+**Note:** Notice that I selected _"sessions"_ and _"driving_days"_ to be dropped, rather than _"drives"_ and _"activity_days"_. The reason for this is that the features that I kept for modelling had slightly stronger correlations with the target variable than the features that I dropped.
+
+![Waze Project](assets/inp_67.png)
+
+Now, I'll isolate the dependent (target) variable and assign it to a variable called y.
+
+![Waze Project](assets/inp_68.png)
+
+Next, I'll split the data.
+
+I'll use scikit-learn’s train_test_split() function to perform a train/test split on the data using the X and y variables I assigned above.
+
+**Note 1:** It is important to do a train test to obtain accurate predictions. I'll fit the model on the training set and evaluate the model on the test set to avoid data leakage.
+**Note 2:** Because the target class is imbalanced (82% retained vs. 18% churned), I want to make sure that I don’t get an unlucky split that over- or under- represents the frequency of the minority class. I'll set the function’s stratify parameter to y to ensure that the minority class appears in both train and test sets in the same proportion that it does in the overall dataset.
+
+![Waze Project](assets/inp_69.png)
+
+![Waze Project](assets/inp_70.png)
+
+![Waze Project](assets/out_70.png)
+
+I'll use scikit-learn to instantiate a logistic regression model. I'll also add the argument penalty = 'none' as it is important since the predictors are unscaled. Then I'll Fit the model on X_train and y_train.
+
+![Waze Project](assets/inp_71.png)
+
+![Waze Project](assets/out_71.png)
+
+I'll use the .coef_ attribute on the model to obtain the coefficients for each variable. These coefficients correspond to the variables in the order they appear in the dataset. To display the results more clearly, I'll create a series where the index consists of the column names, and the values are the coefficients from model.coef_.
+
+![Waze Project](assets/inp_72.png)
+
+![Waze Project](assets/out_72.png)
+
+Next, I'll call the model's intercept_ attribute to get the intercept of the model.
+
+![Waze Project](assets/inp_73.png)
+
+![Waze Project](assets/out_73.png)
+
+Next, I'll check final assumption
+
+I'll start by verifying the linear relationship between X and the estimated log odds (known as logits) by making a regplot. I'll call the model's predict_proba() method to generate the probability of response for each sample in the training data. (The training data is the argument to the method.) I'll assign the result to a variable called training_probabilities. This results in a 2-D array where each row represents a user in X_train. The first column is the probability of the user not churning, and the second column is the probability of the user churning.
+
+![Waze Project](assets/inp_74.png)
+
+![Waze Project](assets/out_74.png)
+
+Now, I'll create a dataframe called _"logit_data"_ that is a copy of _"df"_. Then, I'll create a new column called _"logit"_ in the _"logit_data"_ dataframe. The data in this column should represent the logit for each user.
+
+![Waze Project](assets/inp_75.png)
+
+Now, I'll create a regplot with the x-axis representing an independent variable and the y-axis showing the log-odds of the predicted probabilities. Rather than plotting for every continuous or discrete predictor, I'll focus solely on the variable _"activity_days"_.
+
+![Waze Project](assets/inp_76.png)
+
+![Waze Project](assets/out_76.png)
+
+### **Task 4a: Results and evaluation**
+
+If the logistic assumptions are met, the model results can be appropriately interpreted.
+
+![Waze Project](assets/inp_77.png)
+
+Now, I'll use the score() method on the model with X_test and y_test as its two arguments to find the accuracy of the model
+
+![Waze Project](assets/inp_78.png)
+
+![Waze Project](assets/out_78.png)
+
+### **Task 4b: Show results with a confusion matrix**
+
+I'll use the confusion_matrix function to obtain a confusion matrix. I'll use y_test and y_preds as arguments.
+
+![Waze Project](assets/inp_79.png)
+
+Next, I'll use the ConfusionMatrixDisplay() function to display the confusion matrix from the above cell, passing the confusion matrix I just created as its argument.
+
+![Waze Project](assets/inp_80.png)
+
+![Waze Project](assets/out_80.png)
+
+Since I already calculated accuracy, I'll use the confusion matrix to compute precision and recall manually. I'll also use scikit-learn's classification_report() function to generate a table from y_test and y_preds:
+
+![Waze Project](assets/inp_81.png)
+
+![Waze Project](assets/out_81.png)
+
+![Waze Project](assets/inp_82.png)
+
+![Waze Project](assets/out_82.png)
+
+![Waze Project](assets/inp_83.png)
+
+![Waze Project](assets/out_83.png)
+
+**Note:** The model has mediocre precision and very low recall, which means that it makes a lot of false negative predictions and fails to capture users who will churn.
+
+Next, I'll generate a bar graph of the model's coefficients for a visual representation of the importance of the model's features.
+
+![Waze Project](assets/inp_84.png)
+
+![Waze Project](assets/out_84.png)
+
+![Waze Project](assets/inp_85.png)
+
+![Waze Project](assets/out_85.png)
+
+### **Task 4c: Conclusion**
+
+Now that I've built the regression model, the next step is to share my findings with the Waze leadership team.
+
+**Questions:**
+
+1. What variable most influenced the model's prediction? How? Was this surprising?
+_"activity_days"_ was by far the most important feature in the model. It had a negative correlation with user churn. This was not surprising, as this variable was very strongly correlated with _"driving_days"_, which was known from EDA to have a negative correlation with churn.
+
+2. Were there any variables that I expected to be stronger predictors than they were?
+Yes. In previous EDA, user churn rate increased as the values in _"km_per_driving_day"_ increased. The correlation heatmap in this phase revealed this variable to have the strongest positive correlation with churn of any of the predictor variables by a relatively large margin. In the model, it was the second-least-important variable.
+
+3. Why might a variable I thought to be important not be important in the model?
+In a multiple logistic regression model, features can interact with each other and these interactions can result in seemingly counterintuitive relationships. This is both a strength and a weakness of predictive models, as capturing these interactions typically makes a model more predictive while at the same time making the model more difficult to explain.
+
+4. Would I recommend that Waze use this model? Why or why not?
+It depends. What would the model be used for? If it's used to drive consequential business decisions, then no. The model is not a strong enough predictor, as made clear by its poor recall score. However, if the model is only being used to guide further exploratory efforts, then it can have value.
+
+5. What could I do to improve this model?
+New features could be engineered to try to generate better predictive signal, as they often do if one has domain knowledge. In the case of this model, one of the engineered features (professional_driver) was the third-most-predictive predictor. It could also be helpful to scale the predictor variables, and/or to reconstruct the model with different combinations of predictor variables to reduce noise from unpredictive features.
+
+6. What additional features would I like to have to help improve the model?
+It would be helpful to have drive-level information for each user (such as drive times, geographic locations, etc.). It would probably also be helpful to have more granular data to know how users interact with the app. For example, how often do they report or confirm road hazard alerts? Finally, it could be helpful to know the monthly count of unique starting and ending locations each driver inputs.
+
+I have also created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
+
+[Link to Waze Executive Summary](Waze_Executive_Summary_5.pdf)
