@@ -989,3 +989,386 @@ Now that I've built the regression model, the next step is to share my findings 
 I have also created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
 
 [Link to Waze Executive Summary](Waze_Executive_Summary_5.pdf)
+
+
+## **Step 6 - Build a Machine Learning Model**
+
+My team at Waze is nearing the completion of our project to develop a machine learning model for predicting user churn. So far, I have successfully completed a project proposal, explored and analysed Waze’s user data using Python, created insightful visualisations, and conducted a hypothesis test. Most recently, I developed a binomial logistic regression model using a variety of variables.
+
+Leadership has recognised the team’s efforts and appreciates the progress made. They have now requested that we build and evaluate additional machine learning models to enhance the accuracy of our churn predictions. These models will help leadership make data-driven decisions to reduce churn, improve user retention, and drive business growth for Waze.
+
+During a stakeholder meeting, my team proposed building and testing two machine learning models: Random Forest and XGBoost. Leadership approved this plan and emphasised the importance of including key details, such as a summary of the variables used for predictions and an explanation of how we will assess the model's accuracy.
+
+I will begin by breaking down my tasks into manageable chunks such as:
+
+- Task 1: Imports and data loading
+- Task 2: Feature engineering
+- Task 3: Drop missing values
+- Task 4: Outliers
+- Task 5: Variable encoding
+- Task 6: Feature selection
+- Task 7: Evaluation metric
+- Task 8: Modeling workflow and model selection process
+- Task 9: Split the data
+- Task 10: Modeling
+- Task 11: Model selection
+- Task 12: Use champion model to predict on test data
+- Task 13: Confusion matrix
+- Task 14: Feature importance
+- Task 15: Conclusion
+
+### **Task 1: Imports and Data Loading**
+
+I'll start by importing packages and libraries needed to build classification models to achieve the goal of this project.
+
+![Waze Project](assets/inp_86.png)
+
+Now, I'll read in the dataset as "df0" and inspect the first five rows.
+
+![Waze Project](assets/inp_87.png)
+
+![Waze Project](assets/inp_88.png)
+
+![Waze Project](assets/out_88.png)
+
+### **Task 2: Feature Engineering**
+
+From prior analysis, much of this data has already been prepared, and exploratory data analysis (EDA) has been conducted. I identified certain features with stronger correlations to churn and created additional features that may prove valuable.
+
+Now, I will focus on engineering these features along with some new ones to use for modeling.
+
+To start, I’ll create a copy of the original dataframe, "df0", to ensure it remains intact. The copy will be named "df".
+
+![Waze Project](assets/inp_89.png)
+
+Next, I'll call info() on the new dataframe so the existing columns can be easily referenced.
+
+![Waze Project](assets/inp_90.png)
+
+![Waze Project](assets/out_90.png)
+
+Now, I will generate new features and add them as columns to df. Additionally, I will compute descriptive statistics for these newly created features.
+
+**_km_per_driving_day_**
+
+![Waze Project](assets/inp_91.png)
+
+![Waze Project](assets/out_91.png)
+
+Notice that some values are infinite. This is the result of there being values of zero in the "driving_days" column. Pandas imputes a value of infinity in the corresponding rows of the new column because division by zero is undefined. To convert these values from infinity to zero, I'll use np.inf to refer to a value of infinity. Then, I'll call describe() on the "km_per_driving_day" column to verify that it worked.
+
+![Waze Project](assets/inp_92.png)
+
+![Waze Project](assets/out_92.png)
+
+**_percent_sessions_in_last_month_**
+
+![Waze Project](assets/inp_93.png)
+
+![Waze Project](assets/out_93.png)
+
+**_professional_driver_**
+
+This new binary feature assigns a value of 1 to users who completed 60 or more drives and drove on at least 15 days within the last month.
+
+![Waze Project](assets/inp_94.png)
+
+**_total_sessions_per_day_**
+
+![Waze Project](assets/inp_95.png)
+
+![Waze Project](assets/inp_96.png)
+
+![Waze Project](assets/out_96.png)
+
+**_km_per_hour_**
+
+![Waze Project](assets/inp_97.png)
+
+![Waze Project](assets/out_97.png)
+
+These numbers are obviously problematic, and it would be worthwhile to seek clarification from the Waze team regarding how these features are collected to better understand why such unrealistic speeds are observed.
+
+**_km_per_drive_**
+
+![Waze Project](assets/inp_98.png)
+
+![Waze Project](assets/out_98.png)
+
+This feature has infinite values too. I'll convert the infinite values to zero, then confirm that it worked.
+
+![Waze Project](assets/inp_99.png)
+
+![Waze Project](assets/out_99.png)
+
+**_percent_of_sessions_to_favorite_**
+
+Finally, I will create a new column that represents the percentage of total sessions that were used to navigate to one of the users' favorite places. Then, print descriptive statistics for the new column.
+
+This is a proxy representation for the percent of overall drives that are to a favorite place. Since total drives since onboarding are not contained in this dataset, total sessions must serve as a reasonable approximation.
+
+People whose drives to non-favorite places make up a higher percentage of their total drives might be less likely to churn, since they're making more drives to less familiar places.
+
+![Waze Project](assets/inp_100.png)
+
+![Waze Project](assets/out_100.png)
+
+### **Task 3: Drop Missing Values**
+
+Because I know from previous EDA that there is no evidence of a non-random cause of the 700 missing values in the label column, and because these observations comprise less than 5% of the data, I'll use the dropna() method to drop the rows that are missing this data.
+
+![Waze Project](assets/inp_101.png)
+
+### **Task 4: Outliers**
+
+I also know from previous EDA that many of these columns have outliers. However, tree-based models are resilient to outliers, so there is no need to make any imputations.
+
+### **Task 5: Variable Encoding**
+
+**Dummying Features**
+
+To use "device" as an independent variable (X), it must be converted into a binary format, as it is a categorical variable.
+
+To do this, I will create a new, binary column called "device2" that encodes user devices as follows:
+
+- Android -> 0
+- iPhone -> 1
+
+![Waze Project](assets/inp_102.png)
+
+![Waze Project](assets/out_102.png)
+
+**Target Encoding**
+
+The target variable is also categorical, since a user is labeled as either "churned" or "retained." I will change the data type of the label column to be binary. This change is needed to train the models.
+
+I will assign a 0 for all retained users and assign a 1 for all churned users. The resulting binary variable will be saved as "label2" to preserve the original label variable.
+
+![Waze Project](assets/inp_103.png)
+
+![Waze Project](assets/out_103.png)
+
+### **Task 6: Feature Selection**
+
+Tree-based models can handle multicollinearity, so the only feature that can be cut is ID, since it doesn't contain any information relevant to churn.
+
+Note, however, that device won't be used simply because it's a copy of device2.
+
+I'll go ahead and drop ID from the df dataframe.
+
+![Waze Project](assets/inp_104.png)
+
+### **Task 7: Evaluation Metric**
+
+Before modeling, I need to decide on an evaluation metric. This will depend on the class balance of the target variable and the use case of the model.
+
+First, I'll examine the class balance of the target variable.
+
+![Waze Project](assets/inp_105.png)
+
+![Waze Project](assets/out_105.png)
+
+Approximately 18% of the users in this dataset churned. This is an unbalanced dataset, but not extremely so. It can be modeled without any class rebalancing.
+
+Now, to consider which evaluation metric is best. Accuracy might not be the best gauge of performance because a model can have high accuracy on an imbalanced dataset and still fail to predict the minority class.
+
+I have already determined that the risks involved in making a false positive prediction are minimal. No one stands to get hurt, lose money, or suffer any other significant consequence if they are predicted to churn. Therefore, I will evaluate the model based on the recall score.
+
+### **Task 8: Modeling Workflow and Model Selection Process**
+
+The final modeling dataset consists of 14,299 samples, which is on the lower end of what might be considered adequate for a robust model selection process but remains doable.
+
+**Data Splitting Strategy:**
+
+The dataset will be divided into training, validation, and testing sets using a 60/20/20 split. With a 60/20/20 split, the validation and test sets will each contain approximately 2,860 samples, with around 18% (or 515 samples) representing users who churn.
+
+**Process Overview:**
+
+- **_Train Models_**: Fit models and tune hyperparameters on the training set.
+- **_Model Selection_**: Use the validation set to select the best-performing model.
+- **_Performance Assessment_**: Evaluate the champion model’s performance on the test set.
+
+### **Task 9. Split the data**
+
+Now I am ready to model. The only remaining step is to split the data into features/target variable and training/validation/test sets.
+
+I'll do these by:
+
+- defining a variable X that isolates the features.
+- defining a variable y that isolates the target variable (label2).
+- splitting the data 80/20 into an interim training set and a test set.
+- splitting the interim training set 75/25 into a training set and a validation set, yielding a final ratio of 60/20/20 for training/validation/test sets.
+
+![Waze Project](assets/inp_106.png)
+
+I'll verify the number of samples in the partitioned data:
+
+![Waze Project](assets/inp_107.png)
+
+![Waze Project](assets/out_107.png)
+
+This aligns with expectations.
+
+### **Task 10: Modelling**
+
+**Random forest**
+
+1) I'll use GridSearchCV to tune a random forest model.
+2) Instantiate the random forest classifier rf and set the random state.
+3) Create a dictionary cv_params of the following hyperparameters and their corresponding values to tune:
+   - max_depth
+   - max_features
+   - max_samples
+   - min_samples_leaf
+   - min_samples_split
+   - n_estimators
+4) Define a set scoring of scoring metrics for GridSearch to capture (precision, recall, F1 score, and accuracy).
+5) Instantiate the GridSearchCV object rf_cv. Pass to it as arguments:
+   - estimator=rf
+   - param_grid=cv_params
+   - scoring=scoring
+   - cv=5
+   - refit=recall
+
+![Waze Project](assets/inp_108.png)
+
+Now, I'll fit the model to the training data.
+
+![Waze Project](assets/inp_109.png)
+
+![Waze Project](assets/out_109.png)
+
+Now, I'll examine the best average score across all the validation folds.
+
+![Waze Project](assets/inp_110.png)
+
+![Waze Project](assets/out_110.png)
+
+Now, I'll examine the best combination of hyperparameters.
+
+![Waze Project](assets/inp_111.png)
+
+![Waze Project](assets/out_111.png)
+
+Next, I'll create a make_results() function to output all of the scores of the model.
+
+![Waze Project](assets/inp_112.png)
+
+Now, I'll pass the GridSearch object to the make_results() function.
+
+![Waze Project](assets/inp_113.png)
+
+![Waze Project](assets/out_113.png)
+
+Aside from the accuracy, the performance metrics are not particularly strong. However, when compared to the earlier logistic regression model, which achieved a recall of approximately 0.09, this model demonstrates a 33% improvement in recall while maintaining similar accuracy—even though it was trained on a smaller dataset.
+
+**XGBoost**
+
+1) I'll try to improve the scores using an XGBoost model.
+2) I'll instantiate the XGBoost classifier xgb and set objective='binary:logistic'. Also set the random state.
+3) Create a dictionary cv_params of the following hyperparameters and their corresponding values to tune:
+   - max_depth
+   - min_child_weight
+   - learning_rate
+   - n_estimators
+4) Define a set scoring of scoring metrics for grid search to capture (precision, recall, F1 score, and accuracy).
+5) Instantiate the GridSearchCV object xgb_cv. Pass to it as arguments:
+   - estimator=xgb
+   - param_grid=cv_params
+   - scoring=scoring
+   - cv=5
+   - refit='recall'
+
+![Waze Project](assets/inp_114.png)
+
+Now, I'll fit the model to the X_train and y_train data.
+
+![Waze Project](assets/inp_115.png)
+
+![Waze Project](assets/out_115.png)
+
+Next, I'll get the best score from this model.
+
+![Waze Project](assets/inp_116.png)
+
+![Waze Project](assets/out_116.png)
+
+And the best parameters.
+
+![Waze Project](assets/inp_117.png)
+
+![Waze Project](assets/out_117.png)
+
+I'll use the make_results() function from earlier to output all of the scores of the model.
+
+![Waze Project](assets/inp_118.png)
+
+![Waze Project](assets/out_118.png)
+
+This model outperformed the random forest model, achieving nearly double the recall score of the previously built logistic regression model and approximately 50% higher recall than the random forest model. It accomplished this while maintaining similar accuracy and precision scores.
+
+### **Task 11: Model Selection**
+
+Here, I will use the best random forest model and the best XGBoost model to predict on the validation data. Whichever performs better will be selected as the champion model.
+
+**Random Forest**
+
+![Waze Project](assets/inp_119.png)
+
+I will create a get_test_scores() function to generate a table of scores from the predictions on the validation data.
+
+![Waze Project](assets/inp_120.png)
+
+![Waze Project](assets/inp_121.png)
+
+![Waze Project](assets/out_121.png)
+
+Notice that the scores went down from the training scores across all metrics, but only by very little. This means that the model did not overfit the training data.
+
+**XGBoost**
+
+Now, I'll do the same thing to get the performance scores of the XGBoost model on the validation data.
+
+![Waze Project](assets/inp_122.png)
+
+![Waze Project](assets/out_122.png)
+
+Just like with the random forest model, the XGBoost model's validation scores were lower, but only very slightly. It is still the clear champion.
+
+### **Task 12: Use Champion Model to Predict on Test Data**
+
+Here, I will use the champion model to predict on the test dataset. This is to give a final indication of how the model would be expected to perform on new future data, should it be used.
+
+![Waze Project](assets/inp_123.png)
+
+![Waze Project](assets/out_123.png)
+
+The recall was exactly the same as it was on the validation data, but the precision declined notably, which caused all of the other scores to drop slightly. Nonetheless, this is still within the acceptable range for performance discrepancy between validation and test scores.
+
+### **Task 13: Confusion Matrix**
+
+Here, I will plot a confusion matrix of the champion model's predictions on the test data.
+
+![Waze Project](assets/inp_124.png)
+
+![Waze Project](assets/out_124.png)
+
+The model predicted three times as many false negatives than it did false positives, and it correctly identified only 16.6% of the users who actually churned.
+
+### **Task 14: Feature Importance**
+
+Here, I will use the plot_importance function to inspect the most important features of the final model.
+
+![Waze Project](assets/inp_125.png)
+
+![Waze Project](assets/out_125.png)
+
+The XGBoost model made more use of many of the features than did the logistic regression model from previously which weighted a single feature (activity_days) very heavily in its final prediction.
+
+### **Task 15: Conclusion**
+
+Now that I have built and tested the machine learning models, the next step is to share my findings with the Waze leadership team.
+
+I have created an executive summary for the leadership team. Below is a link to the executive summary I have prepared for the leadership team.
+
+[Link to Waze Executive Summary](Waze_Executive_Summary_6.pdf)
